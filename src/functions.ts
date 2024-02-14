@@ -1,5 +1,3 @@
-import { send } from "process";
-
 /**
  * Consumes a single temperature in Fahrenheit (a number) and converts to Celsius
  * using this formula:
@@ -14,7 +12,7 @@ export function fahrenheitToCelius(temperature: number): number {
  * if the number is greater than zero.
  */
 export function add3(first: number, second: number, third: number): number {
-    let tot: number = 0;
+    let tot = 0;
     if (first >= 0) {
         tot += first;
     }
