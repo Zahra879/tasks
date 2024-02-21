@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * Consume an array of numbers, and return a new array containing
  * JUST the first and last number. If there are no elements, return
@@ -5,7 +6,10 @@
  * the number twice.
  */
 export function bookEndList(numbers: number[]): number[] {
-    return numbers;
+    if (numbers.length < 1) {
+        return [];
+    }
+    return [numbers[0], numbers[numbers.length - 1]];
 }
 
 /**
@@ -13,7 +17,12 @@ export function bookEndList(numbers: number[]): number[] {
  * number has been tripled (multiplied by 3).
  */
 export function tripleNumbers(numbers: number[]): number[] {
-    return numbers;
+    const newarray: number[] = [];
+    for (let i = 0; i < numbers.length; i++) {
+        newarray.push(numbers[i] * 3);
+    }
+    return newarray;
+    //return numbers.map((number) => number * 3);
 }
 
 /**
@@ -21,7 +30,16 @@ export function tripleNumbers(numbers: number[]): number[] {
  * the number cannot be parsed as an integer, convert it to 0 instead.
  */
 export function stringsToIntegers(numbers: string[]): number[] {
-    return [];
+    const arraystring: number[] = [];
+    for (let i = 0; i < numbers.length; i++) {
+        const num: number = parseInt(numbers[i]);
+        if (!isNaN(num)) {
+            arraystring.push(num);
+        } else {
+            arraystring.push(0);
+        }
+    }
+    return arraystring;
 }
 
 /**
@@ -31,9 +49,12 @@ export function stringsToIntegers(numbers: string[]): number[] {
  * convert it to 0 instead.
  */
 // Remember, you can write functions as lambdas too! They work exactly the same.
-export const removeDollars = (amounts: string[]): number[] => {
-    return [];
-};
+export const removeDollars = (amounts: string[]): number[] =>
+    amounts.map((str) => {
+        const numstr = str.startsWith("$") ? str.slice(1) : str;
+        const num = parseInt(numstr);
+        return isNaN(num) ? 0 : num;
+    });
 
 /**
  * Consume an array of messages and return a new list of the messages. However, any
@@ -41,7 +62,12 @@ export const removeDollars = (amounts: string[]): number[] => {
  * in question marks ("?").
  */
 export const shoutIfExclaiming = (messages: string[]): string[] => {
-    return [];
+    const newMessages = [...messages];
+    const filtered = newMessages.filter((message) => !message.endsWith("?"));
+    const final = filtered.map((message) =>
+        message.endsWith("!") ? message.toUpperCase() : message
+    );
+    return final;
 };
 
 /**
@@ -49,7 +75,13 @@ export const shoutIfExclaiming = (messages: string[]): string[] => {
  * 4 letters long.
  */
 export function countShortWords(words: string[]): number {
-    return 0;
+    /*let total = 0;
+    for (let i = 0; i < words.length; i++) {
+        if (words[i].length <= 4) {
+            total++;
+        }
+    }*/
+    return words.filter((word) => word.length < 4).length;
 }
 
 /**
@@ -58,7 +90,14 @@ export function countShortWords(words: string[]): number {
  * then return true.
  */
 export function allRGB(colors: string[]): boolean {
-    return false;
+    if (colors.length === 0) {
+        return true;
+    }
+    const validcolore = ["red", "green", "blue"];
+    return colors.every((color) => validcolore.includes(color));
+
+    //colors.filter(color => color === "red")
+    //return false;
 }
 
 /**
@@ -69,7 +108,12 @@ export function allRGB(colors: string[]): boolean {
  * And the array [] would become "0=0".
  */
 export function makeMath(addends: number[]): string {
-    return "";
+    let sum = 0;
+    for (let i = 0; i < addends.length; i++) {
+        sum += addends[i];
+    }
+    const numstring: string = addends.join("+");
+    return sum + "=" + (numstring || 0);
 }
 
 /**
@@ -81,6 +125,39 @@ export function makeMath(addends: number[]): string {
  * For instance, the array [1, 9, -5, 7] would become [1, 9, -5, 10, 7]
  * And the array [1, 9, 7] would become [1, 9, 7, 17]
  */
-export function injectPositive(values: number[]): number[] {
-    return [];
+export function injectPositive(oldValues: number[]): number[] {
+    const values = [...oldValues];
+    const isNegative = values.some((num: number): boolean => num < 0);
+    // reduce filter splice sllice
+
+    const sum = values.reduce(
+        (currenttotal: number, num: number) => currenttotal + num,
+        0
+    );
+
+    /*for (let i = 0; i < values.length; i++) {
+        if (values[i] < 0 && !negative) {
+            negative = true;
+            values.splice(i, 0, sum);
+            i++;
+        } else {
+            sum += values[i];
+        }
+    }*/
+    if (!isNegative) {
+        values.push(sum);
+        return values;
+    } else {
+        const negIndex = values.findIndex((num: number): boolean => num < 0);
+        const slicedArray = values.slice(0, negIndex);
+        const sum = slicedArray.reduce(
+            (currenttotal: number, num: number) => currenttotal + num,
+            0
+        );
+        values.splice(negIndex + 1, 0, sum);
+        return values;
+    }
+}
+function pow(arg0: number, arg1: number): number {
+    throw new Error("Function not implemented.");
 }

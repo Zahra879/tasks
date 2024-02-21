@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { send } from "process";
 
 /**
@@ -14,7 +15,7 @@ export function fahrenheitToCelius(temperature: number): number {
  * if the number is greater than zero.
  */
 export function add3(first: number, second: number, third: number): number {
-    let tot: number = 0;
+    let tot = 0;
     if (first >= 0) {
         tot += first;
     }
