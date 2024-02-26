@@ -2,7 +2,7 @@
 export type QuestionType = "multiple_choice_question" | "short_answer_question";
 
 export interface Question {
-    newName: Question;
+    //newName: Question;
     /** A unique identifier for the question */
     id: number;
     /** The human-friendly title of the question */
