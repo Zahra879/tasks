@@ -44,11 +44,12 @@ export function isCorrect(question: Question, answer: string): boolean {
  * be exactly one of the options.
  */
 export function isValid(question: Question, answer: string): boolean {
-    return question.type === "short_answer_question"
-        ? true
-        : question.type === "multiple_choice_question"
-        ? question.options.includes(answer)
-        : false;
+    if (question.type === "short_answer_question") {
+        return true;
+    } else if (question.type === "multiple_choice_question") {
+        return question.options.includes(answer);
+    }
+    return false;
 }
 
 /**
@@ -154,6 +155,7 @@ export function mergeQuestion(
     { points }: { points: number }
 ): Question {
     return {
+        //newName: contentQuestion,
         id: id,
         name: name,
         body: contentQuestion.body,
