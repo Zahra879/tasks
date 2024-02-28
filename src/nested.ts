@@ -1,4 +1,3 @@
-import Q from "q";
 import { Answer } from "./interfaces/answer";
 import { Question, QuestionType } from "./interfaces/question";
 import { duplicateQuestion, makeBlankQuestion } from "./objects";
@@ -103,7 +102,7 @@ export function toCSV(questions: Question[]): string {
         "id,name,options,points,published\n" +
         questions
             .map(
-                (question: questions): string =>
+                (question: Question): string =>
                     `${question.id},${question.name},${question.options.length},${question.points},${question.published}`
             )
             .join("\n")
@@ -230,46 +229,28 @@ export function editOption(
     targetOptionIndex: number,
     newOption: string
 ): Question[] {
-    const questioncopy: Question[] = [...questions];
-    const elem = questions.find(
+    const cpQuestions: Question[] = [...questions];
+    const element = questions.find(
         (question: Question): boolean => question.id === targetId
     );
-    if (elem === undefined) {
-        return questioncopy;
+    if (element === undefined) {
+        return cpQuestions;
     }
-
-    const elemIndex = questions.findIndex(
+    const elementIndex = questions.findIndex(
         (question: Question): boolean => question.id === targetId
     );
     if (targetOptionIndex === -1) {
-        const first = { ...elem, options: [...elem.options, newOption] };
-        questioncopy.splice(elemIndex, 1, first);
+        const question1 = {
+            ...element,
+            options: [...element.options, newOption]
+        };
+        cpQuestions.splice(elementIndex, 1, question1);
     } else {
-        const second = { ...elem, options: [...elem.options, newOption] };
-        second.options.splice(targetOptionIndex, 1, newOption);
-        questioncopy.splice(elemIndex, 1, second);
+        const question2 = { ...element, options: [...element.options] };
+        question2.options.splice(targetOptionIndex, 1, newOption);
+        cpQuestions.splice(elementIndex, 1, question2);
     }
-    return questioncopy;
-
-    //const newQues = duplicateQuestion(newId, elem);
-
-    //questioncopy.splice(elemIndex + 1, 0, newQues);
-    /*const update: Question[] = [...questions];
-    const QuestionArr: Question[] = questions.map(
-        (question: Question): Question => {
-            if (question.id === targetId) {
-                const update = { ...question };
-                if (targetOptionIndex === -1) {
-                    update.options.push(newOption);
-                } else {
-                    update.options[targetOptionIndex] = newOption;
-                }
-                return update;
-            }
-            return question;
-        }
-    );
-    return QuestionArr;*/
+    return cpQuestions;
 }
 
 /***
@@ -298,21 +279,5 @@ export function duplicateQuestionInArray(
     const newQues = duplicateQuestion(newId, elem);
 
     questioncopy.splice(elemIndex + 1, 0, newQues);
-    /*const QuestionArr: Question[] = questions.map(
-        (question: Question): Question => {
-            if (question.id === targetId) {
-                const newQues = duplicateQuestion(newId, elem);
-                const update = { ...question };
-                if (targetOptionIndex === -1) {
-                    update.options.push(newOption);
-                } else {
-                    targetOptionIndex.splice(1, 0, newOption);
-                }
-                return update;
-            }
-            return question;
-        }
-    );
-    return QuestionArr;*/
     return questioncopy;
 }
