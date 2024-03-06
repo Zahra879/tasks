@@ -36,6 +36,7 @@ export function CycleHoliday(): JSX.Element {
     }
     return (
         <div>
+            <span>Holiday: {holiday}</span>
             <div>
                 <Button onClick={AlphabetOrder}>Alphabet</Button>
             </div>

@@ -25,6 +25,7 @@ export function StartAttempt(): JSX.Element {
     }
     return (
         <div>
+            <span>Number of Attempts: {num_Attempt}</span>
             <div>
                 <Button
                     onClick={startQuiz}
