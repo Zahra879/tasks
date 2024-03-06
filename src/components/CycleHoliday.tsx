@@ -6,34 +6,41 @@ import { Button } from "react-bootstrap";
 ("spring break🦋");
 ("summer🍀");
 ("winter break⛄");*/
-export function cycleHoliday(): JSX.Element {
+export function CycleHoliday(): JSX.Element {
     const [holiday, setholiday] = useState<string>("🎄");
     function AlphabetOrder(): void {
         if (holiday === "🎄") {
-            setholiday === "🎃";
+            setholiday("🎃");
         } else if (holiday === "🎃") {
-            setholiday === "🦋";
+            setholiday("🦋");
         } else if (holiday === "🦋") {
-            setholiday === "🍀";
+            setholiday("🍀");
         } else if (holiday === "🍀") {
-            setholiday === "⛄";
+            setholiday("⛄");
+        } else if (holiday === "⛄") {
+            setholiday("🎄");
         }
     }
     function inorder(): void {
         if (holiday === "🎄") {
-            setholiday === "🦋";
+            setholiday("🦋");
         } else if (holiday === "🦋") {
-            setholiday === "🍀";
+            setholiday("🍀");
         } else if (holiday === "🍀") {
-            setholiday === "🎃";
+            setholiday("🎃");
         } else if (holiday === "🎃") {
-            setholiday === "⛄";
+            setholiday("⛄");
+        } else if (holiday === "⛄") {
+            setholiday("🎄");
         }
     }
     return (
         <div>
             <div>
                 <Button onClick={AlphabetOrder}>Alphabet</Button>
+            </div>
+            <div>
+                <Button onClick={inorder}>Year</Button>
             </div>
         </div>
     );
