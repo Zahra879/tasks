@@ -5,7 +5,6 @@ export function EditMode(): JSX.Element {
     const [username, setUserName] = useState<string>("Your Name");
     const [isStudent, setStudent] = useState<boolean>(true);
     const [isEdit, setEdit] = useState<boolean>(false);
-
     function updateMode(event: React.ChangeEvent<HTMLInputElement>) {
         setEdit(event.target.checked);
     }
@@ -15,7 +14,6 @@ export function EditMode(): JSX.Element {
     function updateName(event: React.ChangeEvent<HTMLInputElement>) {
         setUserName(event.target.value);
     }
-
     function checkBox(): JSX.Element {
         return (
             <div>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
-import { CheckAnswer } from "./CheckAnswer";
+//import { CheckAnswer } from "./CheckAnswer";
 
 export function MultipleChoiceQuestion({
     options,
@@ -34,12 +34,3 @@ export function MultipleChoiceQuestion({
         </>
     );
 }
-
-/*<h3>Multiple Choice Question</h3>
-            <select
-                type="text"
-                value={userChoise}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                    setUserChoise(event.target.value)
-                }> {options</select>
-            />*/
