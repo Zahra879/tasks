@@ -6,74 +6,51 @@ export function EditMode(): JSX.Element {
     const [isStudent, setStudent] = useState<boolean>(true);
     const [isEdit, setEdit] = useState<boolean>(false);
 
-    function textBox(): JSX.Element {
-        function updateName(event: React.ChangeEvent<HTMLInputElement>) {
-            setUserName(event.target.value);
-        }
+    function updateMode(event: React.ChangeEvent<HTMLInputElement>) {
+        setEdit(event.target.checked);
+    }
+    function updateStatus(event: React.ChangeEvent<HTMLInputElement>) {
+        setStudent(event.target.checked);
+    }
+    function updateName(event: React.ChangeEvent<HTMLInputElement>) {
+        setUserName(event.target.value);
+    }
+
+    function checkBox(): JSX.Element {
         return (
             <div>
+                <Form.Check
+                    type="checkbox"
+                    id="is-student-check"
+                    label="Student?"
+                    checked={isStudent}
+                    onChange={updateStatus}
+                    disabled={!isEdit}
+                />
                 <Form.Group controlId="get student username">
                     <Form.Label>Name:</Form.Label>
                     <Form.Control
                         type="textbox"
                         value={username}
                         onChange={updateName}
-                        disabled={!edit}
+                        disabled={!isEdit}
                     />
                 </Form.Group>
-            </div>
-        );
-    }
-}
-function checkBox(): JSX.Element {
-    const [isStudent, setStudent] = useState(false);
-
-    function updateStudent(event: React.ChangeEvent<HTMLInputElement>) {
-        setStudent(event.target.checked);
-    }
-    return (
-        <div>
-            <Form.Check
-                type="checkbox"
-                id="is-student-check"
-                label="Student?"
-                checked={isStudent}
-                onChange={updateStudent}
-                disabled={!edit}
-            />
-            <div>
-                Your Name {isStudent ? "is a student" : "is not a student"}.
-            </div>
-        </div>
-    );
-}
-
-function edit(): JSX.Element {
-    const [isEdit, setEdit] = useState(false);
-    function updateEdit(event: React.ChangeEvent<HTMLInputElement>) {
-        setStudent(event.target.checked);
-
-        return (
-            <div>
-                <Form.Switch
-                    type="switch"
-                    id="is-happy-check"
-                    label="Happy?"
-                    checked={isEdit}
-                    onChange={updateEdit}
-                />
-                {EditMode === true ? (
-                    checkBox()
-                ) : (
-                    <span> Not in edit mode</span>
-                )}
-                ;
             </div>
         );
     }
     return (
         <div>
             <h3>Edit Mode</h3>
+            <Form.Switch
+                type="switch"
+                id="is-edit-check"
+                label="Edit Mode?"
+                checked={isEdit}
+                onChange={updateMode}
+            />
+            {isEdit === true ? checkBox() : <span> Not in edit mode</span>}
+            {username} is {isStudent ? "a student" : "not a student"}
         </div>
     );
 }
