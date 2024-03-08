@@ -1,18 +1,6 @@
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 
-const COLORS = [
-    "white",
-    "black",
-    "red",
-    "yellow",
-    "green",
-    "blue",
-    "purple",
-    "cyan"
-];
-const DEFAULT_COLOR_INDEX = COLORS[0];
-
 export function ChangeColor(): JSX.Element {
     const [choosenColor, setColor] = useState("black");
 
